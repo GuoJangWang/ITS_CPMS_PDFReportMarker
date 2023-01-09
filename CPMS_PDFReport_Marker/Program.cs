@@ -44,6 +44,7 @@ try
         Console.WriteLine(makeNewPDFFileWithMarkerErrorMsg);
     }
 
+    Console.WriteLine("程式執行完畢");
     Console.ReadKey();
 
 }
