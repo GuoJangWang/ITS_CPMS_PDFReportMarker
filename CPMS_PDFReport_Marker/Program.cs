@@ -37,7 +37,14 @@ try
     string makeNewPDFFileWithMarkerErrorMsg;
     bool makeNewPDFFileWithMarkerStatus;
 
-    _fileTool.MakeNewPDFFileWithMarker(out makeNewPDFFileWithMarkerErrorMsg, originalFile, fontString, successFileName, CPMS_PDFReport_Marker.Const.SuccessFilePath,markerString);
+   var fileMakeResult = _fileTool.MakeNewPDFFileWithMarker(out makeNewPDFFileWithMarkerErrorMsg, originalFile, fontString, successFileName, CPMS_PDFReport_Marker.Const.SuccessFilePath,markerString);
+
+    if (!fileMakeResult)
+    {
+        Console.WriteLine(makeNewPDFFileWithMarkerErrorMsg);
+    }
+
+    Console.ReadKey();
 
 }
 catch (Exception ex)

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Path = System.IO.Path;
 using iText.Kernel.Colors;
+using System.IO;
 
 namespace CPMS_PDFReport_Marker
 {
@@ -68,6 +69,11 @@ namespace CPMS_PDFReport_Marker
 
                 var fullPath = Path.Combine(filePath, fileName);
 
+                var memoryStream = new MemoryStream();
+
+                PdfWriter pdfWriter = new PdfWriter(memoryStream);
+
+
                 float watermarkTrimmingRectangleWidth = 300;
                 float watermarkTrimmingRectangleHeight = 300;
 
@@ -82,9 +88,14 @@ namespace CPMS_PDFReport_Marker
 
                 float fontSize = 50;
 
-                PdfDocument pdfDoc = new PdfDocument(originFile, new PdfWriter(fullPath));
+                //PdfDocument pdfDoc = new PdfDocument(originFile, new PdfWriter(fullPath));
+                PdfDocument pdfDoc = new PdfDocument(originFile, pdfWriter);
+                
+
                 var numberOfPages = pdfDoc.GetNumberOfPages();
                 PdfPage page = null;
+
+
 
                 for (var i = 1; i <= numberOfPages; i++)
                 {
@@ -136,7 +147,16 @@ namespace CPMS_PDFReport_Marker
                 }
 
                 page?.Flush();
+
                 pdfDoc.Close();
+
+                byte[] byteA = memoryStream.ToArray();
+
+                using (FileStream fs = File.Create(fullPath))
+                {
+                    fs.Write(byteA, 0, byteA.Length);
+                }
+
             }
             catch (Exception ex)
             {
