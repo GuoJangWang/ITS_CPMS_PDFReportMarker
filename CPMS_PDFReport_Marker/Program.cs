@@ -6,8 +6,13 @@ using Newtonsoft.Json;
 try
 {
     string originalFilePath = CPMS_PDFReport_Marker.Const.OriginFilePath;
-    string originalFileName = GetOriginalFileName();
-    string successFileName = GetSuccessFileName();
+    string oFileName = "" /*= GetOriginalFileName()*/;
+    //string originalFileName = String.IsNullOrEmpty(oFileName) ? "PChome 24h購物 - 購物車.pdf" : oFileName;
+
+    string originalFileName = String.IsNullOrEmpty(oFileName) ? "DR04P_S_IndustryManagement_20221208165555_.pdf" : oFileName;
+    //string successFileName = GetSuccessFileName();
+    string successFileName = DateTime.Now.ToString("yyyyMMddHHmmssffffff") + ".pdf";
+
 
     var _fileTool = new FileTool();
     var _markerTool = new MarkerTool();
@@ -23,7 +28,9 @@ try
         return;
     }
 
-    string markerString = GetMarker();
+    //string markerString = GetMarker();
+    string markerString = "ITSOWER";
+
     bool getPDFFontStatus;
     string getPDFFontErrorMsg;
     var fontString = _markerTool.GetPDFFont(out getPDFFontStatus, out getPDFFontErrorMsg);
@@ -37,7 +44,7 @@ try
     string makeNewPDFFileWithMarkerErrorMsg;
     bool makeNewPDFFileWithMarkerStatus;
 
-   var fileMakeResult = _fileTool.MakeNewPDFFileWithMarker(out makeNewPDFFileWithMarkerErrorMsg, originalFile, fontString, successFileName, CPMS_PDFReport_Marker.Const.SuccessFilePath,markerString);
+    var fileMakeResult = _fileTool.MakeNewPDFFileWithMarker(out makeNewPDFFileWithMarkerErrorMsg, originalFile, fontString, successFileName, CPMS_PDFReport_Marker.Const.SuccessFilePath, markerString);
 
     if (!fileMakeResult)
     {
@@ -45,7 +52,7 @@ try
     }
 
     Console.WriteLine("程式執行完畢");
-    Console.ReadKey();
+    //Console.ReadKey();
 
 }
 catch (Exception ex)

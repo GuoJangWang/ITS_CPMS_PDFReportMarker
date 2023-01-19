@@ -14,5 +14,8 @@ namespace CPMS_PDFReport_Marker
         public static string SuccessFilePath { get; } = @"C:\VS\GitHub\CPMS_PDFReport_Marker\Files\SuccessFile";
 
         public static string fontTTFPath { get; } = @"C:\VS\GitHub\CPMS_PDFReport_Marker\微軟正黑體-1.ttf";
+
+        public static string iconPath { get; } = @"C:\VS\GitHub\CPMS_PDFReport_Marker\HNCBicon.jpg";
+
     }
 }
